@@ -1,0 +1,151 @@
+#layout {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+#grid {
+    border-style: solid;
+    border-color: coral;
+    height: 800px;
+    width: 800px;
+    position: relative;
+
+}
+
+.gridcell {
+    border-style: solid;
+    border-width: 1px;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+}
+
+#startButton {
+    left: 875px;
+    top: 300px;
+}
+#endButton {
+    left: 875px;
+    top: 375px;
+}
+#resetButton {
+    left: 990px;
+    top: 300px;
+}
+#findButton {
+    left: 875px;
+    top: 450px;
+}
+#blockButton {
+    left: 990px;
+    top: 450px;
+}
+#weightButton {
+    left: 990px;
+    top: 375px;
+}
+#randomButton {
+    left: 935px;
+    top: 520px;
+}
+
+[type="button"] {
+    position: absolute;
+    height: 51px;
+    width: 100px;
+    font-family: "Raleway",sans-serif;
+    font-weight: 300;
+    box-sizing: border-box;
+    border-width: 3px;
+    border-radius: 15px;
+    border-color: #00BFFF;
+    /*background-color: rgb(255, 253, 250); */
+    background: rgb(2,0,36);
+    background: radial-gradient(circle, #FFFFFF 76%, rgba(2,172,228,1) 80%, rgba(2,232,86,0.5917717428768383) 95%, rgba(0,212,255,1) 100%);
+    transition: all 1s ease;
+}
+[type="button"]:hover {
+    background: #87CEFA;
+}
+
+#selector {
+    position: absolute;
+    height: 20px;
+    width: 300px;
+    left: 840px;
+    top: 600px;
+
+}
+.label {
+    position: relative;
+    height: 80px;
+    width: 40px;
+    font-weight: bold;
+    cursor: default;
+    pointer-events: none;
+    left: 15.5px;
+    top: 10px;
+    display: none;
+}
+::selection {
+    color: none;
+    background: none;
+}
+
+@keyframes startFiller {
+    from{transform: scale(.2);
+    background-color:#8A2BE2;}
+    to{tranfrom: scale(1.0);
+    background-color: #8A2BE2;}
+}
+@keyframes endFiller {
+    from{transform: scale(.2);
+    background-color: red;}
+    to{transform: scale(1.0);
+    background-color: red;}
+}
+@keyframes blockFiller {
+    from{transform: scale(.2);
+    background-color: brown;
+    overflow: hidden;}
+    to{transform: scale(1.0);
+    background-color: #cb6d51;
+    overflow: hidden}
+}
+@keyframes findFiller {
+    from{transform: scale(.2);
+        background-color: #ff7f50;}
+        to{tranfrom: scale(1.0);
+        background-color: #00BFFF;}
+}
+@keyframes finishFiller {
+    from{transform: scale(.2);
+    background-color: yellow;}
+    to {transform: scale(1.0);
+    background-color: #32CD32;}
+}
+
+
+#tutorial {
+    position: absolute;
+    border-style: solid;
+    width: 500px;
+    height: 700px;
+    top: 40px;
+    left: 1160px;
+    overflow-y: scroll;
+}
+
+#title {
+    text-align: center;
+    color: white;
+}
+
+#titleBanner {
+    position: absolute;
+    width: 100%;
+    height: 60px;
+    background: linear-gradient(45deg, #0066b2 50%, white 100%);
+    z-index: -1;
+}
