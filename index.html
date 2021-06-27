@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PathFinder</title>
+    <link rel = "stylesheet" type="text/css" href="res/style/style.css"/>
+</head>
+<body>
+    <div id="layout">
+    <div id="grid">
+        <script>
+            var n = 0;
+            for(x = 0; x < 20; x++) {
+                for(y = 0; y < 20; y++) {
+                    var node = document.createElement('div');
+                    node.className = "gridcell";
+                    node.id = n.toString();
+                    n++;
+                    document.getElementById("grid").appendChild(node);
+                }
+            }
+        </script>
+        <script>
+            var xpos = 0;
+            var ypos = 0;
+            for(x = 0; x < 400; x++) {
+                document.getElementById(x.toString()).style.top = xpos.toString()+"px";
+                document.getElementById(x.toString()).style.left = ypos.toString()+"px";
+                ypos = ypos + 40;
+                if (ypos % 800 == 0 && ypos != 0) {
+                    ypos = 0;
+                    xpos = xpos + 40
+                }
+            }
+        </script>
+        <script>
+            for(x = 0; x < 400; x++) {
+                var wlabel = document.createElement('plaintext');
+                    wlabel.id = "label_" + x.toString();
+                    wlabel.value = 0;
+                    wlabel.className = "label";
+                    document.getElementById(x.toString()).appendChild(wlabel);
+            }
+        </script>
+    </div>
+    <button id="startButton" type="button" value = 0 onclick="startClick()">Select Start Node</button>
+    <button id="endButton" type="button" value = 0 onclick = "endClick()">Select End Node</button>
+    <button id="resetButton" type="button" value = 0 onclick="resetClick()">Reset</button>
+    <button id="findButton" type="button" onclick="findClick()">Find Shortest Path!</button>
+    <button id="blockButton" type="button" onclick="blockClick()">Add Roadblocks</button>
+    <button id="randomButton" type="button" onclick="genClick()">Generate a Random Maze</button>
+    <button id="weightButton" type="button" onclick="weightClick()">Add a Weight Node</button>
+    <select id="selector" value="BFS">
+        <option value="BFS">Breadth-First Search</option>
+        <option value="dijkstra">Dijkstra's Algorithm</option>
+        <option value="Astar">A* Algorithm</option>
+    </select>
+    <script src="res/js/gridFunctions.js"></script>
+    <div id="tutorial">
+        <div id="titleBanner"></div>
+        <h1 id="title">PathFinding Visualizer!</h1>
+        <p id="control explanation">Welcome to the Pathfinding Visualizer! To get started, here's how the program works:</p>
+        <h2 id="controls">Controls</h2>
+        <p id= "buttonExplanations"><strong>Select Start Node Button</strong>: Click the Start button to select a start node.<br/>
+        <strong>Select End Node Button</strong>: Click this button to select an end node, which will be the goal.<br/>
+        <strong>Find Shortest Path</strong>: Once a start node and end node have been selected, click this button to find a path between them! Note that the search algorithm being used can be selected from the drop-down menu under the buttons.<br/>
+        <strong>Reset Button</strong>: Click this button to reset the grid, and visualize other paths. <br/>
+        <strong>Add a Weight node Button</strong>: This button allows you to add a weighted node. Simply click this button, then click on any node to add weight to it. Click it
+        repeatedly to add as much weight as you'd like.<br/>
+        <strong>Add Roadblocks Button</strong>: Click this button to add obstacles to the grid. You can click each node individually, or you can click, and then hold and drag around the grid
+        to add to any node that you drag the mouse over. Simply let go of the mouseclick to stop. <br/>
+        <strong>Generate a Random Maze Button</strong>: Lastly, you can generate a random configuration of walls by clicking this button. Press it and see some of the different
+        configurations!</p>
+        <h2 id="algorithms">Algorithms</h2>
+        <p id="AlgorithmExp">As with any PathFinding program, the key to success is the search algorithm. For this program, three particular algorithms have been selected as possible choices for search alogorithms to visualize. 
+                            There is one for unweighted graphs, one for weighted graphs, and one for both that optimizes the amount of nodes searched. The following are the search algorithms:
+                            <br/> <strong>Breadth-First Search Algorithm</strong>: The BFS algorithm is guaranteed to return the shortest path in an unweighted graph. This algorithm does this by looking at every node from the start point in
+                            all directions until finding the end node. While this algorithm is costly in that it will search a lot of nodes, it is guaranteed to return the shortest path if one exists.
+                            <br/><strong>Dijkstra's Algorithm</strong>: This algorithm guarantees the shortest path between two nodes, if one exists, in a weighted graph. This is done by keeping track of the weights, and repreatedly comparing
+                            the cost of each path with the current shortest path founds for the start node and any observed node. In this program, the algorithm covers the entire grid, storing the shortest path from start to any node,
+                            but displays the path between the start and end node that have been slected if there is any. Note that this algorithm also works on unidirected graphs.
+                            <br/><strong>A*(AStar) Algorithm</strong>: This algorithm is similar to Dijkstra's algorithm in how it functions, but now adds a heuristic to optimize the amount of nodes searched. A heuristic is simply an additional value that
+                            helps guide the algorithm towards the end node. As such, it is important to note that this is an informed algorithm, so information about the end node is used in the algorithm while it is running, unlike the previous two examples.
+                            The heuristic for this program is the mathematical distance between the current node and the end node. This value and the weight of the node is considered in choosing which nodes will be prioritized in the search. 
+                            A custom-built heap class is used in this program for the purpose of bookeeping the nodes and their distance, and as a result, if a shortest path exists, this algorithm will try to find the path with
+                            the least number of nodes visited out of the three algorithms. This heuristic is NOT admissable, which means there are cases where instead of the shortest path being returned, the path that took the least number of 
+                            individual node searches is returned. Try out the program and see if you can find some of them!.
+                            <h2 id="mazeAlgo">Algorithm for Generating a Random Maze</h2>
+                            Lastly, there is an algorithm used for the maze generation. The Recursive Division algorithm is used in this program, and it works by creating a wall, then creating an opening between that wall
+                            to carve out a path. Then this process is repeated on the two halves created by the first wall. Its recursive because this process will keep going until the maze is done. For this program, some chnages were made to typical
+                            algorithm to make things more unique and intersting. For example, instead of starting from the center and proceeding in a horizontal or vertical manner, this program randomly selects a location to build the wall and randomly selected whether it will
+                            be vertical or horizontal in every iteration. Furthermore, instead of always having one opening for each wall, this algorithm generates a random amount of openings from 0 to the entire wall and carves it out. These changes make
+                            the algorithm a little more unique and result in some fun and intersting mazes! Be careful though, generating a maze will reset whatever is on the grid currently. Furthermore, because of the randomness of the algorithm,
+                            there will most likely not be a possible path from everyone one node to any other. Generate some and see for youself if you can find some neat paths!.
+                            <br/> <br/> <br/>
+                            That's all! Now that everything about the program has been explained, feel free to explore the pathfinder to your hearts content! 
+        </p>
+    </div>
+    </div>
+</body>
+</html> 
